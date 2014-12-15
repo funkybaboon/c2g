@@ -1,0 +1,15 @@
+<p>Carsharing mit <span>{{ vendor }}</span>!</p>
+
+    <p>Strecke</p>
+    <input type="number" ng-init="updateprice()" ng-change="updateprice()" ng-model="km"/> Km
+    <p>Zeit</p>
+    <input type="number" ng-init="updateprice()" ng-change="updateprice()" ng-model="time"/> Minuten
+    <p>Zeit stehend</p>
+    <input type="number" ng-init="updateprice()" ng-change="updateprice()" ng-model="time_standing"/> Minuten
+    <p></p>
+	Flughafenpauschale: <input type="checkbox" ng-change="updateprice()" ng-model="airport">
+    <p>Kosten</p>
+    {{ price | currency}}
+
+    <p>Debug</p>
+    {{ debug }}
