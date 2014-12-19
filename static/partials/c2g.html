@@ -1,15 +1,31 @@
 <p>Carsharing mit <span>{{ vendor }}</span>!</p>
 
-    <p>Strecke</p>
-    <input type="number" ng-init="updateprice()" ng-change="updateprice()" ng-model="km"/> Km
-    <p>Zeit</p>
-    <input type="number" ng-init="updateprice()" ng-change="updateprice()" ng-model="time"/> Minuten
-    <p>Zeit stehend</p>
-    <input type="number" ng-init="updateprice()" ng-change="updateprice()" ng-model="time_standing"/> Minuten
-    <p></p>
-	Flughafenpauschale: <input type="checkbox" ng-change="updateprice()" ng-model="airport">
-    <p>Kosten</p>
-    {{ price | currency}}
 
-    <p>Debug</p>
-    {{ debug }}
+<p>Strecke</p>
+<input type="number" ng-model="distance"/>Km
+
+<p>Zeit</p>
+<input type="number" ng-model="time"/> Minuten
+
+<p>Zeit stehend</p>
+<input type="number" ng-model="time_standing"/> Minuten
+
+<p></p>
+Flughafenpauschale: <input type="checkbox" ng-model="airport">
+
+<p></p>
+Preis: {{ price(distance, time, time_standing, airport) | currency }}
+
+<p>Preis im Detail:</p>
+<b>Zeit</b><br>
+{{ getDays(time) }} Tage a {{ fee_day | currency }} = {{ getFeeDays(time) | currency }}<br>
+{{ getHours(time) }} Stunden a {{ fee_hour | currency }} = {{ getFeeHours(time) | currency }}<br>
+{{ getMinutes(time) }} Minuten a {{ fee_minute | currency }} = {{ getFeeMinutes(time) | currency }}<br>
+
+<b>Distanz</b><br>
+{{ getSimpleKm(distance, time) }} km a {{ fee_simplekm | currency }} Einfacher Kilometer Preis ({{ getFreeKm( time) }} Freikilometer)= {{ getFee_simpleKm(km, time) | currency }} Kilometer Preis<br>
+{{ getAdditionalKm(distance, time) }} km a {{ fee_additionalkm | currency }} Zusätzlicher Kilometer Preis = {{ getFee_additionalKm(distance, time) | currency }} Kilometer Preis<br>
+
+<b>Sonstiges</b><br>
+{{ getFeeStanding(time_standing) | currency }} Zeit stehend<br>
+{{ getFeeAirport(airport) | currency }} Flughafenpauschale<br>

@@ -2,114 +2,108 @@ var myApp = angular.module('myApp',['ngRoute']);
 
 myApp.controller('c2gController', ['$scope', function($scope) {
 	    
-    $scope.vendor = "car2go";
-    $scope.km = 10;
+    $scope.vendor = "car2go Black";
+    $scope.distance = 10;
     $scope.time = 20;
     $scope.time_standing = 0;
-
-    $scope.price = 0;
-
     $scope.airport = false;
 
-    var fee_airport = 4.9;
-    
-    var fee_minute_standing = 0.19;
-    var fee_minute_driving = 0.29;
-    
-    // additional fee per km after the first 50km
-    var fee_additional_minute_driving = 0.29;
-    
-    var fee_hour_driving = 14.90;
-    // after this many minutes you get billed an hour
-    var hour_valid = Math.floor(fee_hour_driving / fee_minute_driving);
+    $scope.fee_day = 49;
+    $scope.fee_hour = 14.9;
+    $scope.fee_minute = 0.29;
 
-    var fee_day_driving = 49.00;
-    // after this many minutes you get billed a day
-    var day_valid = Math.floor(fee_day_driving / fee_minute_driving);
+    $scope.fee_simplekm = 0.29;
+    $scope.fee_additionalkm = 0.58;
 
-    // first 50km are always included
-    var km_free = 50;
-    // for one day you get 100 free km
-    var km_free_day = 100;
+    $scope.getDays = function( minutes ) {
+        return Math.floor(minutes / 1440);
+    }
 
+    $scope.getHours = function( minutes ) {
+        return Math.floor((minutes - ($scope.getDays( minutes ) * 1440))/ 60);
+    }
 
-    var timespan = function( minutes ) {
-        var time = {
-            days: 0,
-            hours: 0,
-            minutes: 0
+    $scope.getMinutes = function( minutes ) {
+        return minutes % 1440 % 60;
+    }
+
+    $scope.getFreeKm = function( minutes ) {
+        var freeKm = 50;
+        if( $scope.getDays( minutes) > 0 ) {
+            freeKm = $scope.getDays( minutes ) * 100;
         };
-        time.days = Math.floor(minutes / day_valid);
-        time.hours = Math.floor((minutes - (time.days * day_valid))/ hour_valid);
-        time.minutes = minutes % day_valid % hour_valid;
+        return freeKm;
+    }
 
-        return time;
-    };
-
-    var timeprice = function( timespan) {
-    	var day = timespan.days * fee_day_driving;
-    	var hour = timespan.hours * fee_hour_driving;
-    	var minute = timespan.minutes * fee_minute_driving;
-	    console.log(day);
-	    console.log(hour);
-	    console.log(minute);
-        return day + hour + minute;
-    };
-
-    var kmprice = function( distance, timespan) {
-        var freekms = function( timespan ) {
-            var free;
-        
-            if( timespan.days >= 1) {
-                free = timespan.days * km_free_day;
-                if( timespan.hours > 0 || timespan.minutes > 0){
-                    free += km_free;
-                }
-            } else {
-                free = km_free;
-            }
-            return free;
-        };
-
-        var realkms = distance - freekms(timespan);
-        var price = distance * fee_minute_driving;
-        if (realkms > 0){
-               price += realkms * fee_additional_minute_driving;
+    $scope.getSimpleKm = function( km, minutes ) {
+        var simpleKm = km;
+        var freeKm = $scope.getFreeKm( km, minutes );
+        if( km > freeKm ) {
+            simpleKm = freeKm;
         }
-        return price;
-    };
+        return simpleKm;
+    }
 
-    var total = function( distance, minutes) {
-        return (kmprice( distance, timespan(minutes)) + timeprice( timespan(minutes)));
-    };
-
-    // calcPro(km,time,airport) return Number
-    $scope.updateprice = function () {
-        $scope.price = total($scope.km,$scope.time);
-        if( $scope.airport ) {
-            $scope.price = $scope.price + fee_airport;
+    $scope.getAdditionalKm = function( km, minutes ) {
+        var AdditionalKm = 0;
+        var freeKm = $scope.getFreeKm( km, minutes );
+        if( km - freeKm > 0 ) {
+            AdditionalKm = km - freeKm;
         }
-    };
-    
-    var debugtimespan = 350;
-    var debugdistance = 1;
+        return AdditionalKm;
+    }
 
-	//console.log(timeprice( 20));
+    $scope.getFee_simpleKm = function( km, minutes ) {
+        return $scope.getSimpleKm( km, minutes ) * $scope.fee_simplekm;
+    }
 
-    $scope.debug = [ 
-        hour_valid, 
-        day_valid, 
-        timespan(debugtimespan), 
-        kmprice(debugdistance, debugtimespan),
-        //timeprice(timespan(debugtimespan))
-    ];
+    $scope.getFee_additionalKm = function( km, minutes ) {
+        return $scope.getAdditionalKm( km, minutes ) * $scope.fee_additionalkm;
+    }
 
+
+    $scope.getFeeDays = function( minutes ) {
+        return Math.floor(minutes / 1440) * $scope.fee_day;
+    }
+
+    $scope.getFeeHours = function( minutes ) {
+        return Math.floor((minutes - ($scope.getDays( minutes ) * 1440))/ 60) * $scope.fee_hour;
+    }
+
+    $scope.getFeeMinutes = function( minutes ) {
+        return minutes % 1440 % 60 * $scope.fee_minute;
+    }
+
+    $scope.getFeeStanding = function( minutes ) {
+        return minutes * 0.19;
+    }
+
+    $scope.getFeeAirport = function( airport ) {
+        fee = 0;
+        if( airport ){
+            fee = 4.90;
+        }
+        return fee;
+    }
+
+    $scope.price = function( km, minutes, time_standing, airport) {
+        return (
+            $scope.getFee_simpleKm( km, minutes ) + 
+            $scope.getFee_additionalKm( km, minutes ) + 
+            $scope.getFeeDays( minutes ) + 
+            $scope.getFeeHours( minutes ) + 
+            $scope.getFeeMinutes( minutes ) + 
+            $scope.getFeeStanding( time_standing ) + 
+            $scope.getFeeAirport( airport )
+        );
+    }
 }]);
 
+myApp.controller('c2gbController', ['$scope', function($scope) {
+}]);
 
 myApp.controller('smController', ['$scope', function($scope) {
 }]);
-
 
 myApp.config(['$routeProvider',
   function($routeProvider) {
@@ -117,6 +111,10 @@ myApp.config(['$routeProvider',
       when('/c2g', {
         templateUrl: 'partials/c2g.html',
         controller: 'c2gController'
+      }).
+      when('/c2gb', {
+        templateUrl: 'partials/c2gb.html',
+        controller: 'c2gbController'
       }).
       when('/sm', {
         templateUrl: 'partials/sm.html',
