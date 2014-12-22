@@ -1,1 +1,26 @@
-Car2Go Black
+<p>Carsharing mit <span>{{ vendor }}</span>!</p>
+
+
+<p>Strecke</p>
+<input type="number" ng-model="distance"/>Km
+
+<p>Zeit</p>
+<input type="number" ng-model="time"/> Minuten
+
+<p></p>
+Flughafenpauschale: <input type="checkbox" ng-model="airport">
+
+<p></p>
+Preis: {{ price(distance, time, time_standing, airport) | currency }}
+
+<p>Preis im Detail:</p>
+<b>Zeit</b><br>
+{{ getDays(time) }} Tage a {{ fee_day | currency }} = {{ getFeeDays(time) | currency }}<br>
+{{ getHours(time) }} Stunden a {{ fee_hour | currency }} = {{ getFeeHours(time) | currency }}<br>
+
+<b>Distanz</b><br>
+{{ getFreeKm( time) }} Freikilometer<br>
+{{ getAdditionalKm(distance, time) }} km a {{ fee_additionalkm | currency }} Zusätzlicher Kilometer Preis = {{ getFee_additionalKm(distance, time) | currency }} Kilometer Preis<br>
+
+<b>Sonstiges</b><br>
+{{ getFeeAirport(airport) | currency }} Flughafenpauschale<br>
