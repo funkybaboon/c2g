@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-	<title>Car2Go Kostenrechner</title>
+	<title>Carsharing Rechner</title>
 	
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="main.css"/>
@@ -13,8 +13,12 @@
 </head>
 <body class="container">
 
+	<div class="page-header">
+		Carsharing Rechner
+	</div>
+
 	<section ng-controller="TabController">
-		<ul class="nav nav-pills">
+		<ul class="nav nav-pills nav-justified">
 			<li ng-class="{ active:isSet(1) }">
 				<a href="#/c2g" ng-click="setTab(1)">Car2go</a>
 			</li>
