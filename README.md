@@ -1,5 +1,5 @@
 c2g
 ===
-clone
-npm install
-npm start
+  1. clone
+  2. npm install
+  3. npm start
