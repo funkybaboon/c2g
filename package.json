@@ -1,0 +1,26 @@
+{
+  "name": "c2g",
+  "version": "1.0.0",
+  "description": "c2g\r ===",
+  "main": "server.js",
+  "dependencies": {
+    "bower": "^1.3.12",
+    "express": "^4.10.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "postinstall" : "node_modules/.bin/bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/funkybaboon/c2g.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funkybaboon/c2g/issues"
+  },
+  "homepage": "https://github.com/funkybaboon/c2g"
+}
