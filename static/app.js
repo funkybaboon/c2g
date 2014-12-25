@@ -16,23 +16,23 @@ myApp.controller('c2gController', ['$scope', function($scope) {
 
     $scope.getDays = function( minutes ) {
         return Math.floor(minutes / 1440);
-    }
+    };
 
     $scope.getHours = function( minutes ) {
         return Math.floor((minutes - ($scope.getDays( minutes ) * 1440))/ 60);
-    }
+    };
 
     $scope.getMinutes = function( minutes ) {
         return minutes % 1440 % 60;
-    }
+    };
 
     $scope.getFreeKm = function( minutes ) {
         var freeKm = 50;
         if( $scope.getDays( minutes) > 0 ) {
             freeKm = $scope.getDays( minutes ) * 100;
-        };
+        }
         return freeKm;
-    }
+    };
 
     $scope.getAdditionalKm = function( km, minutes ) {
         var AdditionalKm = 0;
@@ -41,27 +41,27 @@ myApp.controller('c2gController', ['$scope', function($scope) {
             AdditionalKm = km - freeKm;
         }
         return AdditionalKm;
-    }
+    };
 
     $scope.getFee_additionalKm = function( km, minutes ) {
         return $scope.getAdditionalKm( km, minutes ) * $scope.fee_additionalkm;
-    }
+    };
 
     $scope.getFeeDays = function( minutes ) {
         return Math.floor(minutes / 1440) * $scope.fee_day;
-    }
+    };
 
     $scope.getFeeHours = function( minutes ) {
         return Math.floor((minutes - ($scope.getDays( minutes ) * 1440))/ 60) * $scope.fee_hour;
-    }
+    };
 
     $scope.getFeeMinutes = function( minutes ) {
         return minutes % 1440 % 60 * $scope.fee_minute;
-    }
+    };
 
     $scope.getFeeStanding = function( minutes ) {
         return minutes * 0.19;
-    }
+    };
 
     $scope.getFeeAirport = function( airport ) {
         fee = 0;
@@ -69,18 +69,18 @@ myApp.controller('c2gController', ['$scope', function($scope) {
             fee = 4.90;
         }
         return fee;
-    }
+    };
 
     $scope.price = function( km, minutes, time_standing, airport) {
         return (
-            $scope.getFee_additionalKm( km, minutes ) + 
-            $scope.getFeeDays( minutes ) + 
-            $scope.getFeeHours( minutes ) + 
-            $scope.getFeeMinutes( minutes ) + 
-            $scope.getFeeStanding( time_standing ) + 
+            $scope.getFee_additionalKm( km, minutes ) +
+            $scope.getFeeDays( minutes ) +
+            $scope.getFeeHours( minutes ) +
+            $scope.getFeeMinutes( minutes ) +
+            $scope.getFeeStanding( time_standing ) +
             $scope.getFeeAirport( airport )
             );
-    }
+    };
 }]);
 
 myApp.controller('c2gbController', ['$scope', function($scope) {
@@ -96,19 +96,19 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
 
     $scope.getDays = function( minutes ) {
         return Math.floor(minutes / 1440);
-    }
+    };
 
     $scope.getHours = function( minutes ) {
         return Math.ceil((minutes - ($scope.getDays( minutes ) * 1440))/ 60);
-    }
+    };
 
     $scope.getFreeKm = function( minutes ) {
         var freeKm = 50;
         if( $scope.getDays( minutes) > 0 ) {
             freeKm = $scope.getDays( minutes ) * 200;
-        };
+        }
         return freeKm;
-    }
+    };
 
     $scope.getAdditionalKm = function( km, minutes ) {
         var AdditionalKm = 0;
@@ -117,19 +117,19 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
             AdditionalKm = km - freeKm;
         }
         return AdditionalKm;
-    }
+    };
 
     $scope.getFee_additionalKm = function( km, minutes ) {
         return $scope.getAdditionalKm( km, minutes ) * $scope.fee_additionalkm;
-    }
+    };
 
     $scope.getFeeDays = function( minutes ) {
         return Math.floor(minutes / 1440) * $scope.fee_day;
-    }
+    };
 
     $scope.getFeeHours = function( minutes ) {
         return Math.ceil((minutes - ($scope.getDays( minutes ) * 1440))/ 60) * $scope.fee_hour;
-    }
+    };
 
     $scope.getFeeAirport = function( airport ) {
         fee = 0;
@@ -137,16 +137,16 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
             fee = 4.90;
         }
         return fee;
-    }
+    };
 
     $scope.price = function( km, minutes, time_standing, airport) {
         return (
-            $scope.getFee_additionalKm( km, minutes ) + 
-            $scope.getFeeDays( minutes ) + 
-            $scope.getFeeHours( minutes ) + 
+            $scope.getFee_additionalKm( km, minutes ) +
+            $scope.getFeeDays( minutes ) +
+            $scope.getFeeHours( minutes ) +
             $scope.getFeeAirport( airport )
             );
-    }
+    };
 
 }]);
 
@@ -163,19 +163,19 @@ myApp.controller('smController', ['$scope', function($scope) {
 
     $scope.getDays = function( minutes ) {
         return Math.floor(minutes / 1440);
-    }
+    };
 
     $scope.getHours = function( minutes ) {
         return Math.ceil((minutes - ($scope.getDays( minutes ) * 1440))/ 60);
-    }
+    };
 
     $scope.getFreeKm = function( minutes ) {
         var freeKm = 50;
         if( $scope.getDays( minutes) > 0 ) {
             freeKm = $scope.getDays( minutes ) * 200;
-        };
+        }
         return freeKm;
-    }
+    };
 
     $scope.getAdditionalKm = function( km, minutes ) {
         var AdditionalKm = 0;
@@ -184,19 +184,19 @@ myApp.controller('smController', ['$scope', function($scope) {
             AdditionalKm = km - freeKm;
         }
         return AdditionalKm;
-    }
+    };
 
     $scope.getFee_additionalKm = function( km, minutes ) {
         return $scope.getAdditionalKm( km, minutes ) * $scope.fee_additionalkm;
-    }
+    };
 
     $scope.getFeeDays = function( minutes ) {
         return Math.floor(minutes / 1440) * $scope.fee_day;
-    }
+    };
 
     $scope.getFeeHours = function( minutes ) {
         return Math.ceil((minutes - ($scope.getDays( minutes ) * 1440))/ 60) * $scope.fee_hour;
-    }
+    };
 
     $scope.getFeeAirport = function( airport ) {
         fee = 0;
@@ -204,16 +204,16 @@ myApp.controller('smController', ['$scope', function($scope) {
             fee = 4.90;
         }
         return fee;
-    }
+    };
 
     $scope.price = function( km, minutes, time_standing, airport) {
         return (
-            $scope.getFee_additionalKm( km, minutes ) + 
-            $scope.getFeeDays( minutes ) + 
-            $scope.getFeeHours( minutes ) + 
+            $scope.getFee_additionalKm( km, minutes ) +
+            $scope.getFeeDays( minutes ) +
+            $scope.getFeeHours( minutes ) +
             $scope.getFeeAirport( airport )
             );
-    }
+    };
 
 
 
@@ -230,7 +230,6 @@ myApp.controller("TabController", function($scope) {
       $scope.tab = setTab;
   };
 });
-
 
 myApp.config(['$routeProvider',
   function($routeProvider) {
