@@ -1,1 +1,58 @@
-Stadtmobil
+<div class="form-group">
+	<div class="input-group">
+		<input type="number" class="form-control" placeholder="Strecke" aria-describedby="basic-addon2" ng-model="distance">
+		<span class="input-group-addon" id="basic-addon2">Km</span>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="input-group">
+		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="time_hours">
+		<span class="input-group-addon" id="basic-addon2">Stunden</span>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="input-group">
+		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="time_days">
+		<span class="input-group-addon" id="basic-addon2">Tage</span>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="input-group">
+		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="time_weeks">
+		<span class="input-group-addon" id="basic-addon2">Wochen</span>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="input-group">
+		Fahrzeugklasse:
+		<form>
+			<input type="radio" ng-model="rate" value="A">A Kleinstwagen<br/>
+			<input type="radio" ng-model="rate" value="B">B Kleinwagen<br/>
+			<input type="radio" ng-model="rate" value="C">C Kombi/Fun<br/>
+			<input type="radio" ng-model="rate" value="D">D Komfort/Kleinbus<br/>
+			<input type="radio" ng-model="rate" value="F">F Transporter<br/>
+		</form>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="input-group">
+		Tarif:
+		<form>
+			<input type="radio" ng-model="tariff" value="classic">Classic<br/>
+			<input type="radio" ng-model="tariff" value="basic">Basic<br/>
+			<input type="radio" ng-model="tariff" value="studi">Studi<br/>
+			<input type="radio" ng-model="tariff" value="business" disabled>Business<br/>
+		</form>
+	</div>
+</div>
+
+<h1>{{ price(distance, time_hours, time_days, time_weeks, rate, tariff) | currency }}</h1>
+<h2>{{ priceDistance(distance, rate, tariff) | currency }} Km Preis </h2>
+<h2>{{ priceTime(time_hours, time_days, time_weeks, rate, tariff) | currency }} Zeit Preis</h2>
+
+
