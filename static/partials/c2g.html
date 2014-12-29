@@ -27,18 +27,18 @@
 	</div>
 </div>
 
-<h1>{{ price(distance, time, time_standing, airport) | currency }}</h1>
+<h1><span>{{ price(distance, time, time_standing, airport) | currency }}</span></h1>
 
 <p>Preis im Detail:<p>
 	<b>Zeit</b><br>
-	{{ getDays(time) }} Tage a {{ fee_day | currency }} = {{ getFeeDays(time) | currency }}<br>
-	{{ getHours(time) }} Stunden a {{ fee_hour | currency }} = {{ getFeeHours(time) | currency }}<br>
-	{{ getMinutes(time) }} Minuten a {{ fee_minute | currency }} = {{ getFeeMinutes(time) | currency }}<br>
+	<span>{{ getDays(time) }}</span> Tage a <span>{{ fee_day | currency }}</span> = <span>{{ getFeeDays(time) | currency }}</span><br>
+	<span>{{ getHours(time) }}</span> Stunden a <span>{{ fee_hour | currency }}</span> = <span>{{ getFeeHours(time) | currency }}</span><br>
+	<span>{{ getMinutes(time) }}</span> Minuten a <span>{{ fee_minute | currency }}</span> = <span>{{ getFeeMinutes(time) | currency }}</span><br>
 
 	<b>Distanz</b><br>
-	{{ getFreeKm( time) }} Freikilometer<br>
-	{{ getAdditionalKm(distance, time) }} km a {{ fee_additionalkm | currency }} Zusätzlicher Kilometer Preis = {{ getFee_additionalKm(distance, time) | currency }} Kilometer Preis<br>
+	<span>{{ getFreeKm( time) }}</span> Freikilometer<br>
+	<span><span>{{ getAdditionalKm(distance, time) }}</span></span> km a <span>{{ fee_additionalkm | currency }}</span> Zusätzlicher Kilometer Preis = <span>{{ getFee_additionalKm(distance, time) | currency }}</span> Kilometer Preis<br>
 
 	<b>Sonstiges</b><br>
-	{{ getFeeStanding(time_standing) | currency }} Zeit stehend<br>
-	{{ getFeeAirport(airport) | currency }} Flughafenpauschale<br>
+	<span>{{ getFeeStanding(time_standing) | currency }}</span> Zeit stehend<br>
+	<span>{{ getFeeAirport(airport) | currency }}</span> Flughafenpauschale<br>
