@@ -6,7 +6,7 @@ describe('c2gb test 10km 20min', function() {
   var getFeeHours = element(by.binding('getFeeHours'));
   var getFreeKm = element(by.binding('getFreeKm'));
   var getAdditionalKm = element(by.binding('getAdditionalKm'));
-  var getFee_additionalKm = element(by.binding('getFee_additionalKm'));
+  var getfeeAdditionalKm = element(by.binding('getfeeAdditionalKm'));
   var getFeeAirport = element(by.binding('getFeeAirport'));
 
   beforeEach(function() {
@@ -27,7 +27,7 @@ describe('c2gb test 10km 20min', function() {
     //Distanz
     expect(getFreeKm.getText()).toEqual('50');
     expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getFee_additionalKm.getText()).toEqual('0,00 €');
+    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
     //Sonstiges
     expect(getFeeAirport.getText()).toEqual('0,00 €');
@@ -47,7 +47,7 @@ describe('c2gb test 10km 20min', function() {
     //Distanz
     expect(getFreeKm.getText()).toEqual('50');
     expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getFee_additionalKm.getText()).toEqual('0,00 €');
+    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
     //Sonstiges
     expect(getFeeAirport.getText()).toEqual('4,90 €');

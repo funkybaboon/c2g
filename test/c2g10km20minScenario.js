@@ -8,7 +8,7 @@ describe('c2g test', function() {
   var getFeeMinutes = element(by.binding('getFeeMinutes'));
   var getFreeKm = element(by.binding('getFreeKm'));
   var getAdditionalKm = element(by.binding('getAdditionalKm'));
-  var getFee_additionalKm = element(by.binding('getFee_additionalKm'));
+  var getfeeAdditionalKm = element(by.binding('getfeeAdditionalKm'));
   var getFeeStanding = element(by.binding('getFeeStanding'));
   var getFeeAirport = element(by.binding('getFeeAirport'));
 
@@ -32,7 +32,7 @@ describe('c2g test', function() {
     //Distanz
     expect(getFreeKm.getText()).toEqual('50');
     expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getFee_additionalKm.getText()).toEqual('0,00 €');
+    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('0,00 €');
@@ -56,7 +56,7 @@ describe('c2g test', function() {
     //Distanz
     expect(getFreeKm.getText()).toEqual('50');
     expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getFee_additionalKm.getText()).toEqual('0,00 €');
+    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('0,00 €');
@@ -64,7 +64,7 @@ describe('c2g test', function() {
   });
 
   it('10km, 20 minutes, 10 standing minutes', function() {
-    element(by.model('time_standing')).clear().sendKeys(10);
+    element(by.model('timeStanding')).clear().sendKeys(10);
 
     //Preis
     expect(price.getText()).toEqual('7,70 €');
@@ -80,7 +80,7 @@ describe('c2g test', function() {
     //Distanz
     expect(getFreeKm.getText()).toEqual('50');
     expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getFee_additionalKm.getText()).toEqual('0,00 €');
+    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('1,90 €');
@@ -89,7 +89,7 @@ describe('c2g test', function() {
 
   it('10km, 20 minutes, 10 standing minutes, airport fee', function() {
     element(by.model('airport')).click();
-    element(by.model('time_standing')).clear().sendKeys(10);
+    element(by.model('timeStanding')).clear().sendKeys(10);
 
     //Preis
     expect(price.getText()).toEqual('12,60 €');
@@ -105,7 +105,7 @@ describe('c2g test', function() {
     //Distanz
     expect(getFreeKm.getText()).toEqual('50');
     expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getFee_additionalKm.getText()).toEqual('0,00 €');
+    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('1,90 €');
