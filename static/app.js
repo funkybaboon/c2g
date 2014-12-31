@@ -55,7 +55,7 @@ myApp.controller('c2gController', ['$scope', function($scope) {
     return (
       Math.floor((minutes - ($scope.getDays(minutes) * 1440)) / 60) *
       $scope.feeHour
-      );
+    );
   };
 
   $scope.getFeeMinutes = function(minutes) {
@@ -156,7 +156,27 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
 
 }]);
 
-myApp.controller('smController', ['$scope', function($scope) {
+myApp.factory('stadtMobilRates', function($http) {
+  var promise = null;
+
+  return function() {
+    if (promise) {
+      // If we've already asked for this data once,
+      // return the promise that already exists.
+      return promise;
+    } else {
+      promise = $http.get('stadtmobilRates.json');
+      return promise;
+    }
+  };
+});
+
+myApp.controller('smController', ['$scope', 'stadtMobilRates', function($scope, stadtMobilRates) {
+  var stadtmobilRates = null;
+  stadtMobilRates().success(function(data) {
+    stadtmobilRates = data;
+  });
+
   $scope.distance = 10;
   $scope.timeHours = 20;
   $scope.timeDays = 0;
@@ -164,7 +184,7 @@ myApp.controller('smController', ['$scope', function($scope) {
   $scope.rate = 'A';
   $scope.tariff = 'classic';
 
-  var stadtmobilRates = {
+  /*var stadtmobilRates = {
     classic: {
       A: {
         night: 0,
@@ -266,7 +286,7 @@ myApp.controller('smController', ['$scope', function($scope) {
       D: {},
       F: {}
     }
-  };
+  };*/
 
   var getDuration = function(hours, days, weeks) {
     return moment.duration({
@@ -301,7 +321,7 @@ myApp.controller('smController', ['$scope', function($scope) {
     if (tariff === 'studi') {
       tariff = 'classic';
     }
-    return stadtmobilRates[tariff][rate];
+    return stadtmobilRates.tariff.rate;
   };
 
   var priceDistance = function(km, rate, tariff) {
