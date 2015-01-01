@@ -156,197 +156,105 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
 
 }]);
 
-myApp.factory('stadtMobilRates', function($http) {
-  var promise = null;
+myApp.factory('stadtMobilRates', function($q, $http) {
+  var mobilRates = null;
 
-  return function() {
-    if (promise) {
-      // If we've already asked for this data once,
-      // return the promise that already exists.
-      return promise;
-    } else {
-      promise = $http.get('stadtmobilRates.json');
-      return promise;
-    }
+  function LoadData() {
+    var defer = $q.defer();
+    $http.get('stadtmobilRates.json').success(function(data) {
+      mobilRates = data;
+      defer.resolve();
+    });
+    return defer.promise;
+  }
+
+  return {
+    GetData: function() {
+      return mobilRates;
+    },
+    LoadData: LoadData
   };
 });
 
-myApp.controller('smController', ['$scope', 'stadtMobilRates', function($scope, stadtMobilRates) {
-  var stadtmobilRates = null;
-  stadtMobilRates().success(function(data) {
-    stadtmobilRates = data;
-  });
+myApp.controller('smController', [
+  '$scope',
+  'stadtMobilRates',
+  function($scope, stadtMobilRates) {
+    var stadtmobilRates = stadtMobilRates.GetData();
 
-  $scope.distance = 10;
-  $scope.timeHours = 20;
-  $scope.timeDays = 0;
-  $scope.timeWeeks = 0;
-  $scope.rate = 'A';
-  $scope.tariff = 'classic';
+    $scope.distance = 10;
+    $scope.timeHours = 20;
+    $scope.timeDays = 0;
+    $scope.timeWeeks = 0;
+    $scope.rate = 'A';
+    $scope.tariff = 'classic';
 
-  /*var stadtmobilRates = {
-    classic: {
-      A: {
-        night: 0,
-        hour: 1.4,
-        day: 21,
-        week: 125,
-        km000: 0.2,
-        km101: 0.18,
-        km701: 0.18
-      },
-      B: {
-        night: 0,
-        hour: 2.2,
-        day: 25,
-        week: 140,
-        km000: 0.22,
-        km101: 0.19,
-        km701: 0.16
-      },
-      C: {
-        night: 0,
-        hour: 2.8,
-        day: 32,
-        week: 160,
-        km000: 0.26,
-        km101: 0.21,
-        km701: 0.17
-      },
-      D: {
-        night: 1,
-        hour: 3.2,
-        day: 35,
-        week: 190,
-        km000: 0.29,
-        km101: 0.25,
-        km701: 0.25
-      },
-      F: {
-        night: 2,
-        hour: 4.2,
-        day: 44,
-        week: 245,
-        km000: 0.33,
-        km101: 0.27,
-        km701: 0.27
+    var getDuration = function(hours, days, weeks) {
+      return moment.duration({
+        hours: hours,
+        days: days,
+        weeks: weeks
+      });
+    };
+
+    var getFeeTime = function(duration, rate) {
+      return (
+        duration.hours() * rate.hour +
+        duration.days() % 7 * rate.day +
+        Math.floor(duration.days() / 7) * rate.week
+      );
+    };
+
+    var getFeeDistance = function(km, rate) {
+      var fee = 0;
+      if (km >= 701) {
+        fee = 100 * rate.km000 + 600 * rate.km101 + (km - 700) * rate.km701;
+      } else if (km < 701 && km >= 101) {
+        fee = 100 * rate.km000 + (km - 100) * rate.km101;
+      } else {
+        fee = km * rate.km000;
       }
-    },
-    basic: {
-      A: {
-        night: 0,
-        hour: 1.6,
-        day: 26,
-        week: 140,
-        km000: 0.22,
-        km101: 0.18,
-        km701: 0.18
-      },
-      B: {
-        night: 0,
-        hour: 2.7,
-        day: 30,
-        week: 155,
-        km000: 0.27,
-        km101: 0.21,
-        km701: 0.16
-      },
-      C: {
-        night: 0,
-        hour: 3.3,
-        day: 37,
-        week: 175,
-        km000: 0.31,
-        km101: 0.23,
-        km701: 0.17
-      },
-      D: {
-        night: 1,
-        hour: 3.7,
-        day: 40,
-        week: 210,
-        km000: 0.34,
-        km101: 0.25,
-        km701: 0.25
-      },
-      F: {
-        night: 2,
-        hour: 4.7,
-        day: 49,
-        week: 260,
-        km000: 0.38,
-        km101: 0.27,
-        km701: 0.27
+      return fee;
+    };
+
+    var getCurrentRate = function(rate, tariff) {
+      // studi and classic have the same rates
+      if (tariff === 'studi') {
+        tariff = 'classic';
       }
-    },
-    business: {
-      A: {},
-      B: {},
-      C: {},
-      D: {},
-      F: {}
-    }
-  };*/
+      return stadtmobilRates[tariff][rate];
+    };
 
-  var getDuration = function(hours, days, weeks) {
-    return moment.duration({
-      hours: hours,
-      days: days,
-      weeks: weeks
-    });
-  };
+    var priceDistance = function(km, rate, tariff) {
+      var currentRate = getCurrentRate(rate, tariff);
+      return getFeeDistance(km, currentRate);
+    };
 
-  var getFeeTime = function(duration, rate) {
-    return (
-      duration.hours() * rate.hour +
-      duration.days() % 7 * rate.day +
-      Math.floor(duration.days() / 7) * rate.week
-    );
-  };
+    var priceTime = function(timeHours, timeDays, timeWeeks, rate, tariff) {
+      var currentRate = getCurrentRate(rate, tariff);
+      var duration = getDuration(timeHours, timeDays, timeWeeks);
+      return getFeeTime(duration, currentRate);
+    };
 
-  var getFeeDistance = function(km, rate) {
-    var fee = 0;
-    if (km >= 701) {
-      fee = 100 * rate.km000 + 600 * rate.km101 + (km - 700) * rate.km701;
-    } else if (km < 701 && km >= 101) {
-      fee = 100 * rate.km000 + (km - 100) * rate.km101;
-    } else {
-      fee = km * rate.km000;
-    }
-    return fee;
-  };
+    var price = function(
+      distance,
+      timeHours,
+      timeDays,
+      timeWeeks,
+      rate,
+      tariff) {
+      return (
+        priceDistance(distance, rate, tariff) +
+        priceTime(timeHours, timeDays, timeWeeks, rate, tariff)
+      );
+    };
 
-  var getCurrentRate = function(rate, tariff) {
-    // studi and classic have the same rates
-    if (tariff === 'studi') {
-      tariff = 'classic';
-    }
-    return stadtmobilRates.tariff.rate;
-  };
+    $scope.price = price;
+    $scope.priceDistance = priceDistance;
+    $scope.priceTime = priceTime;
 
-  var priceDistance = function(km, rate, tariff) {
-    var currentRate = getCurrentRate(rate, tariff);
-    return getFeeDistance(km, currentRate);
-  };
-
-  var priceTime = function(timeHours, timeDays, timeWeeks, rate, tariff) {
-    var currentRate = getCurrentRate(rate, tariff);
-    var duration = getDuration(timeHours, timeDays, timeWeeks);
-    return getFeeTime(duration, currentRate);
-  };
-
-  var price = function(distance, timeHours, timeDays, timeWeeks, rate, tariff) {
-    return (
-      priceDistance(distance, rate, tariff) +
-      priceTime(timeHours, timeDays, timeWeeks, rate, tariff)
-    );
-  };
-
-  $scope.price = price;
-  $scope.priceDistance = priceDistance;
-  $scope.priceTime = priceTime;
-
-}]);
+  }
+]);
 
 myApp.controller('TabController', function($scope) {
   $scope.tab = 1;
@@ -375,7 +283,12 @@ myApp.config(['$routeProvider',
     }).
     when('/sm', {
       templateUrl: 'partials/sm.html',
-      controller: 'smController'
+      controller: 'smController',
+      resolve: {
+        load: function(stadtMobilRates) {
+          return stadtMobilRates.LoadData();
+        }
+      }
     }).
     otherwise({
       redirectTo: '/c2g'
