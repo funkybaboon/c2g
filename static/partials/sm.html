@@ -30,11 +30,11 @@
 	<div class="input-group">
 		Fahrzeugklasse:
 		<form>
-			<input type="radio" ng-model="rate" value="A">A Kleinstwagen<br/>
-			<input type="radio" ng-model="rate" value="B">B Kleinwagen<br/>
-			<input type="radio" ng-model="rate" value="C">C Kombi/Fun<br/>
-			<input type="radio" ng-model="rate" value="D">D Komfort/Kleinbus<br/>
-			<input type="radio" ng-model="rate" value="F">F Transporter<br/>
+			<input type="radio" ng-model="rate" value="A" id="rateA">A Kleinstwagen<br/>
+			<input type="radio" ng-model="rate" value="B" id="rateB">B Kleinwagen<br/>
+			<input type="radio" ng-model="rate" value="C" id="rateC">C Kombi/Fun<br/>
+			<input type="radio" ng-model="rate" value="D" id="rateD">D Komfort/Kleinbus<br/>
+			<input type="radio" ng-model="rate" value="F" id="rateF">F Transporter<br/>
 		</form>
 	</div>
 </div>
@@ -43,16 +43,16 @@
 	<div class="input-group">
 		Tarif:
 		<form>
-			<input type="radio" ng-model="tariff" value="classic">Classic<br/>
-			<input type="radio" ng-model="tariff" value="basic">Basic<br/>
-			<input type="radio" ng-model="tariff" value="studi">Studi<br/>
-			<input type="radio" ng-model="tariff" value="business" disabled>Business<br/>
+			<input type="radio" ng-model="tariff" value="classic" id="tariffclassic">Classic<br/>
+			<input type="radio" ng-model="tariff" value="basic" id="tariffbasic">Basic<br/>
+			<input type="radio" ng-model="tariff" value="studi" id="tariffstudi">Studi<br/>
+			<input type="radio" ng-model="tariff" value="business" id="tariffbusiness" disabled>Business<br/>
 		</form>
 	</div>
 </div>
 
-<h1>{{ price(distance, timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h1>
-<h2>{{ priceDistance(distance, rate, tariff) | currency }} Km Preis </h2>
-<h2>{{ priceTime(timeHours, timeDays, timeWeeks, rate, tariff) | currency }} Zeit Preis</h2>
+<h1 id="price">{{ price(distance, timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h1>
+<h2 id="priceDistance">{{ priceDistance(distance, rate, tariff) | currency }}</h2> Km Preis<br>
+<h2 id="priceTime">{{ priceTime(timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h2> Zeit Preis<br>
 
 

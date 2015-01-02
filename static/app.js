@@ -183,7 +183,7 @@ myApp.controller('smController', [
     var stadtmobilRates = stadtMobilRates.GetData();
 
     $scope.distance = 10;
-    $scope.timeHours = 20;
+    $scope.timeHours = 10;
     $scope.timeDays = 0;
     $scope.timeWeeks = 0;
     $scope.rate = 'A';
