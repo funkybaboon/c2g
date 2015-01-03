@@ -1,4 +1,8 @@
-var myApp = angular.module('myApp', ['ngRoute', 'angularMoment']);
+var myApp = angular.module('myApp', [
+  'ngRoute',
+  'angularMoment',
+  'ui.bootstrap'
+]);
 
 myApp.controller('c2gController', ['$scope', function($scope) {
 
