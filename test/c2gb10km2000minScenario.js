@@ -10,7 +10,7 @@ describe('c2gb test 10km 2000min', function() {
   var getFeeAirport = element(by.binding('getFeeAirport'));
 
   beforeEach(function() {
-    browser.get('http://localhost:3003/#/c2gb');
+    browser.get('http://localhost:3003/c2gb');
   });
 
   // default (10km and 20 minutes)

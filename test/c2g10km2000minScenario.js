@@ -13,7 +13,7 @@ describe('c2g test', function() {
   var getFeeAirport = element(by.binding('getFeeAirport'));
 
   beforeEach(function() {
-    browser.get('http://localhost:3003/#/c2g');
+    browser.get('http://localhost:3003/c2g');
   });
 
   // 10km and 2000 minutes)

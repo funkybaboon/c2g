@@ -260,22 +260,17 @@ myApp.controller('smController', [
   }
 ]);
 
-myApp.controller('TabController', function($scope) {
-  $scope.tab = 1;
-
-  $scope.isSet = function(checkTab) {
-    return $scope.tab === checkTab;
+myApp.controller('TabController', function($scope, $location) {
+  $scope.isActive = function(viewLocation) {
+    return viewLocation === $location.path();
   };
 
-  $scope.setTab = function(setTab) {
-    $scope.tab = setTab;
-  };
 });
 
-myApp.controller('RateController', function($scope) {});
+myApp.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider, $scope) {
+    $locationProvider.html5Mode(true);
 
-myApp.config(['$routeProvider',
-  function($routeProvider) {
     $routeProvider.
     when('/c2g', {
       templateUrl: 'partials/c2g.html',
