@@ -260,13 +260,6 @@ myApp.controller('smController', [
   }
 ]);
 
-myApp.controller('TabController', function($scope, $location) {
-  $scope.isActive = function(viewLocation) {
-    return viewLocation === $location.path();
-  };
-
-});
-
 myApp.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider, $scope) {
     $locationProvider.html5Mode(true);
@@ -294,3 +287,23 @@ myApp.config(['$routeProvider', '$locationProvider',
     });
   }
 ]);
+
+myApp.directive('navBar', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/navBar.html',
+    controller: function($scope, $element, $location) {
+      $scope.isActive = function(viewLocation) {
+
+        var active = false;
+
+        if (viewLocation === $location.path()) {
+          active = true;
+        }
+
+        return active;
+
+      };
+    }
+  };
+});
