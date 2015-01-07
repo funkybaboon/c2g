@@ -1,35 +1,37 @@
 <div class="form-group">
-    <div class="input-group">
-      <input type="number" class="form-control" placeholder="Strecke" aria-describedby="basic-addon2" ng-model="distance">
-      <span class="input-group-addon" id="basic-addon2">Km</span>
+  <div class="input-group">
+    <input type="number" class="form-control" placeholder="Strecke" ng-model="distance">
+    <span class="input-group-addon">Km</span>
   </div>
 </div>
 
 <div class="form-group">
-    <div class="input-group">
-      <input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="time">
-      <span class="input-group-addon" id="basic-addon2">Minuten</span>
+  <div class="input-group">
+    <input type="number" class="form-control" placeholder="Zeit" ng-model="time">
+    <span class="input-group-addon">Minuten</span>
   </div>
 </div>
 
 <div class="form-group">
-    <div class="input-group">
-        <div class="checkbox">
-          <label><input type="checkbox" ng-model="airport">Flughafenpauschale</label>
-        </div>
+  <div class="input-group">
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="airport">Flughafenpauschale</label>
     </div>
+  </div>
 </div>
 
-<h1> <span>{{ price(distance, time, airport) | currency }}</span></h1>
+<div class="highlight">
+  <h1> <span>{{ price(distance, time, airport) | currency }}</span></h1>
 
-<p>Preis im Detail:</p>
-<b>Zeit</b><br>
- <span>{{ getDays(time) }}</span> Tage a  <span>{{ feeDay | currency }}</span> =  <span>{{ getFeeDays(time) | currency }}</span><br>
- <span>{{ getHours(time) }}</span> Stunden a  <span>{{ feeHour | currency }}</span> =  <span>{{ getFeeHours(time) | currency }}</span><br>
+  <p>Preis im Detail:</p>
+  <b>Zeit</b><br>
+  <span>{{ getDays(time) }}</span> Tage a  <span>{{ feeDay | currency }}</span> =  <span>{{ getFeeDays(time) | currency }}</span><br>
+  <span>{{ getHours(time) }}</span> Stunden a  <span>{{ feeHour | currency }}</span> =  <span>{{ getFeeHours(time) | currency }}</span><br>
 
-<b>Distanz</b><br>
- <span>{{ getFreeKm( time) }}</span> Freikilometer<br>
- <span>{{ getAdditionalKm(distance, time) }}</span> km a  <span>{{ feeAdditionalKm | currency }}</span> Zusätzlicher Kilometer Preis =  <span>{{ getfeeAdditionalKm(distance, time) | currency }}</span> Kilometer Preis<br>
+  <b>Distanz</b><br>
+  <span>{{ getFreeKm( time) }}</span> Freikilometer<br>
+  <span>{{ getAdditionalKm(distance, time) }}</span> km a  <span>{{ feeAdditionalKm | currency }}</span> Zusätzlicher Kilometer Preis =  <span>{{ getfeeAdditionalKm(distance, time) | currency }}</span> Kilometer Preis<br>
 
-<b>Sonstiges</b><br>
- <span>{{ getFeeAirport(airport) | currency }}</span> Flughafenpauschale<br>
+  <b>Sonstiges</b><br>
+  <span>{{ getFeeAirport(airport) | currency }}</span> Flughafenpauschale<br>
+</div>

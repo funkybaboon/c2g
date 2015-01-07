@@ -1,21 +1,21 @@
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Strecke" aria-describedby="basic-addon2" ng-model="distance">
-		<span class="input-group-addon" id="basic-addon2">Km</span>
+		<input type="number" class="form-control" placeholder="Strecke" ng-model="distance">
+		<span class="input-group-addon">Km</span>
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="time">
-		<span class="input-group-addon" id="basic-addon2">Minuten</span>
+		<input type="number" class="form-control" placeholder="Zeit" ng-model="time">
+		<span class="input-group-addon">Minuten</span>
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Zeit stehend" aria-describedby="basic-addon2" ng-model="timeStanding">
-		<span class="input-group-addon" id="basic-addon2">Minuten (Stehend)</span>
+		<input type="number" class="form-control" placeholder="Zeit stehend" ng-model="timeStanding">
+		<span class="input-group-addon">Minuten (Stehend)</span>
 	</div>
 </div>
 
@@ -27,9 +27,10 @@
 	</div>
 </div>
 
-<h1><span>{{ price(distance, time, timeStanding, airport) | currency }}</span></h1>
+<div class="highlight">
+	<h1><span>{{ price(distance, time, timeStanding, airport) | currency }}</span></h1>
 
-<p>Preis im Detail:<p>
+	<p>Preis im Detail:</p>
 	<b>Zeit</b><br>
 	<span>{{ getDays(time) }}</span> Tage a <span>{{ feeDay | currency }}</span> = <span>{{ getFeeDays(time) | currency }}</span><br>
 	<span>{{ getHours(time) }}</span> Stunden a <span>{{ feeHour | currency }}</span> = <span>{{ getFeeHours(time) | currency }}</span><br>
@@ -42,3 +43,4 @@
 	<b>Sonstiges</b><br>
 	<span>{{ getFeeStanding(timeStanding) | currency }}</span> Zeit stehend<br>
 	<span>{{ getFeeAirport(airport) | currency }}</span> Flughafenpauschale<br>
+</div>

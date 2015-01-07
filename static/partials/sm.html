@@ -1,28 +1,28 @@
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Strecke" aria-describedby="basic-addon2" ng-model="distance">
-		<span class="input-group-addon" id="basic-addon2">Km</span>
+		<input type="number" class="form-control" placeholder="Strecke" ng-model="distance">
+		<span class="input-group-addon">Km</span>
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="timeHours">
-		<span class="input-group-addon" id="basic-addon2">Stunden</span>
+		<input type="number" class="form-control" placeholder="Zeit" ng-model="timeHours">
+		<span class="input-group-addon">Stunden</span>
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="timeDays">
-		<span class="input-group-addon" id="basic-addon2">Tage</span>
+		<input type="number" class="form-control" placeholder="Zeit" ng-model="timeDays">
+		<span class="input-group-addon">Tage</span>
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="input-group">
-		<input type="number" class="form-control" placeholder="Zeit" aria-describedby="basic-addon2" ng-model="timeWeeks">
-		<span class="input-group-addon" id="basic-addon2">Wochen</span>
+		<input type="number" class="form-control" placeholder="Zeit" ng-model="timeWeeks">
+		<span class="input-group-addon">Wochen</span>
 	</div>
 </div>
 
@@ -51,8 +51,8 @@
 	</div>
 </div>
 
-<h1 id="price">{{ price(distance, timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h1>
-<h2 id="priceDistance">{{ priceDistance(distance, rate, tariff) | currency }}</h2> Km Preis<br>
-<h2 id="priceTime">{{ priceTime(timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h2> Zeit Preis<br>
-
-
+<div class="highlight">
+	<h1 id="price">{{ price(distance, timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h1>
+	<h2 id="priceDistance">{{ priceDistance(distance, rate, tariff) | currency }}</h2> Km Preis<br>
+	<h2 id="priceTime">{{ priceTime(timeHours, timeDays, timeWeeks, rate, tariff) | currency }}</h2> Zeit Preis<br>
+</div>
