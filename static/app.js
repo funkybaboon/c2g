@@ -339,9 +339,9 @@ myApp.controller('DatepickerDemoCtrl', function($scope) {
 
   // end date
   $scope.endDateToday = function() {
-    $scope.endDate = new moment().add(20, 'h');
+    $scope.endDate = new moment();
   };
-  $scope.endDateToday();
+  $scope.endDate = new moment().add(20, 'h');
 
   $scope.endDateClear = function() {
     $scope.endDate = null;
