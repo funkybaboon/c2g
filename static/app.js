@@ -1,7 +1,8 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
   'angularMoment',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.bootstrap.datetimepicker'
 ]);
 
 myApp.controller('c2gController', ['$scope', function($scope) {
@@ -281,6 +282,10 @@ myApp.config(['$routeProvider', '$locationProvider',
       templateUrl: 'partials/test.html',
       controller: 'DatepickerDemoCtrl'
     }).
+    when('/dtp', {
+      templateUrl: 'partials/dtp.html',
+      controller: 'datetimepickerCtrl'
+    }).
     otherwise({
       redirectTo: '/c2g'
     });
@@ -357,6 +362,16 @@ myApp.controller('DatepickerDemoCtrl', function($scope) {
 
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[2];
+
+  // duration
+  $scope.getDuration = function(start, end) {
+    return moment.duration(end - start).humanize();
+  };
+});
+
+myApp.controller('datetimepickerCtrl', function($scope) {
+  $scope.startDate = new moment();
+  $scope.endDate = new moment().add(20, 'h');
 
   // duration
   $scope.getDuration = function(start, end) {

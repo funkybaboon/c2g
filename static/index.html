@@ -3,6 +3,9 @@
 <head>
 	<title>Carsharing Rechner</title>
 	
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+
+
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="main.css"/>
 
@@ -13,17 +16,24 @@
 	<script src="bower_components/angular-moment/angular-moment.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
+	<link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+
+
+
 	<script src="app.js"></script>
 	<base href="/index.html">
 </head>
 <body class="container">
-		<div class="page-header">
-			Carsharing Rechner
-		</div>
+	<div class="page-header">
+		Carsharing Rechner
+	</div>
 
-		<nav-Bar></nav-Bar>
+	<nav-Bar></nav-Bar>
 
-		<div ng-view></div>
+	<div ng-view></div>
 
 </body>
 </html>
