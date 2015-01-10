@@ -160,32 +160,25 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
 
 }]);
 
-myApp.factory('stadtMobilRates', function($q, $http) {
-  var mobilRates = null;
+myApp.factory('stadtMobilRates', function($http) {
+  var promise = null;
 
-  function LoadData() {
-    var defer = $q.defer();
-    $http.get('stadtmobilRates.json').success(function(data) {
-      mobilRates = data;
-      defer.resolve();
-    });
-    return defer.promise;
-  }
-
-  return {
-    GetData: function() {
-      return mobilRates;
-    },
-    LoadData: LoadData
+  return function() {
+    if (promise) {
+      // If we've already asked for this data once,
+      // return the promise that already exists.
+      return promise;
+    } else {
+      promise = $http.get('stadtmobilRates.json');
+      return promise;
+    }
   };
 });
 
 myApp.controller('smController', [
   '$scope',
-  'stadtMobilRates',
-  function($scope, stadtMobilRates) {
-    var stadtmobilRates = stadtMobilRates.GetData();
-
+  'stadtmobilRates',
+  function($scope, stadtmobilRates) {
     $scope.distance = 10;
     $scope.timeHours = 10;
     $scope.timeDays = 0;
@@ -226,7 +219,7 @@ myApp.controller('smController', [
       if (tariff === 'studi') {
         tariff = 'classic';
       }
-      return stadtmobilRates[tariff][rate];
+      return stadtmobilRates[tariff][$scope.rate];
     };
 
     var priceDistance = function(km, rate, tariff) {
@@ -277,19 +270,16 @@ myApp.config(['$routeProvider', '$locationProvider',
       templateUrl: 'partials/sm.html',
       controller: 'smController',
       resolve: {
-        load: function(stadtMobilRates) {
-          return stadtMobilRates.LoadData();
-        }
+        stadtmobilRates: ['stadtMobilRates', function(stadtMobilRates) {
+          return stadtMobilRates().then(function(resp) {
+            return resp.data;
+          });
+        }]
       }
     }).
     when('/test', {
       templateUrl: 'partials/test.html',
-      controller: 'smController',
-      resolve: {
-        load: function(stadtMobilRates) {
-          return stadtMobilRates.LoadData();
-        }
-      }
+      controller: 'DatepickerDemoCtrl'
     }).
     otherwise({
       redirectTo: '/c2g'
