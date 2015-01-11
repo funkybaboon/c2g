@@ -220,7 +220,7 @@ myApp.controller('smController', [
       if (tariff === 'studi') {
         tariff = 'classic';
       }
-      return stadtmobilRates[tariff][$scope.rate];
+      return stadtmobilRates[tariff][rate];
     };
 
     var priceDistance = function(km, rate, tariff) {
@@ -284,7 +284,14 @@ myApp.config(['$routeProvider', '$locationProvider',
     }).
     when('/dtp', {
       templateUrl: 'partials/dtp.html',
-      controller: 'datetimepickerCtrl'
+      controller: 'datetimepickerCtrl',
+      resolve: {
+        stadtmobilRates: ['stadtMobilRates', function(stadtMobilRates) {
+          return stadtMobilRates().then(function(resp) {
+            return resp.data;
+          });
+        }]
+      }
     }).
     otherwise({
       redirectTo: '/c2g'
@@ -369,13 +376,72 @@ myApp.controller('DatepickerDemoCtrl', function($scope) {
   };
 });
 
-myApp.controller('datetimepickerCtrl', function($scope) {
-  $scope.startDate = new moment();
-  $scope.endDate = new moment().add(20, 'h');
+myApp.controller('datetimepickerCtrl', [
+  '$scope',
+  'stadtmobilRates',
+  function($scope, stadtmobilRates) {
+    moment.locale('de');
+    $scope.startDate = new moment();
+    $scope.endDate = new moment().add(20, 'h');
+    $scope.distance = 10;
 
-  // duration
-  $scope.getDuration = function(start, end) {
-    return moment.duration(end - start).humanize();
-  };
+    $scope.rate = 'A';
+    $scope.tariff = 'classic';
 
-});
+    var getFeeTime = function(duration, rate) {
+      return (duration * rate.hour);
+    };
+
+    var getFeeDistance = function(km, rate) {
+      var fee = 0;
+      if (km >= 701) {
+        fee = 100 * rate.km000 + 600 * rate.km101 + (km - 700) * rate.km701;
+      } else if (km < 701 && km >= 101) {
+        fee = 100 * rate.km000 + (km - 100) * rate.km101;
+      } else {
+        fee = km * rate.km000;
+      }
+      return fee;
+    };
+
+    var getCurrentRate = function(rate, tariff) {
+      // studi and classic have the same rates
+      if (tariff === 'studi') {
+        tariff = 'classic';
+      }
+      return stadtmobilRates[tariff][rate];
+    };
+
+    var priceDistance = function(km, rate, tariff) {
+      var currentRate = getCurrentRate(rate, tariff);
+      return getFeeDistance(km, currentRate);
+    };
+
+    var priceTime = function(startDate, endDate, rate, tariff) {
+      var currentRate = getCurrentRate(rate, tariff);
+      var duration = $scope.getDuration(startDate, endDate);
+      return getFeeTime(duration, currentRate);
+    };
+
+    var price = function(
+      distance,
+      startDate,
+      endDate,
+      rate,
+      tariff) {
+      return (
+        priceDistance(distance, rate, tariff) +
+        priceTime(startDate, endDate, rate, tariff)
+      );
+    };
+
+    $scope.price = price;
+    $scope.priceDistance = priceDistance;
+    $scope.priceTime = priceTime;
+
+    // duration
+    $scope.getDuration = function(start, end) {
+      return Math.ceil(moment.duration(end - start).asHours());
+    };
+  }
+]);
