@@ -382,14 +382,28 @@ myApp.controller('datetimepickerCtrl', [
   function($scope, stadtmobilRates) {
     moment.locale('de');
     $scope.startDate = new moment();
-    $scope.endDate = new moment().add(20, 'h');
+    $scope.endDate = new moment().add(10, 'h');
     $scope.distance = 10;
 
     $scope.rate = 'A';
     $scope.tariff = 'classic';
 
-    var getFeeTime = function(duration, rate) {
-      return (duration * rate.hour);
+    var getDurationExact = function(start, end) {
+      timespan = moment.duration(end - start);
+      timespanExact = {
+        hours: timespan.hours(),
+        days: Math.floor(timespan.asDays() % 7),
+        weeks: Math.floor(timespan.asDays() / 7)
+      };
+      return timespanExact;
+    };
+
+    var getFeeTime = function(timespan, rate) {
+      return (
+        timespan.hours * rate.hour +
+        timespan.days * rate.day +
+        timespan.weeks * rate.week
+      );
     };
 
     var getFeeDistance = function(km, rate) {
@@ -419,7 +433,7 @@ myApp.controller('datetimepickerCtrl', [
 
     var priceTime = function(startDate, endDate, rate, tariff) {
       var currentRate = getCurrentRate(rate, tariff);
-      var duration = $scope.getDuration(startDate, endDate);
+      var duration = getDurationExact(startDate, endDate);
       return getFeeTime(duration, currentRate);
     };
 
@@ -438,10 +452,15 @@ myApp.controller('datetimepickerCtrl', [
     $scope.price = price;
     $scope.priceDistance = priceDistance;
     $scope.priceTime = priceTime;
+    $scope.getDurationExact = getDurationExact;
 
     // duration
     $scope.getDuration = function(start, end) {
       return Math.ceil(moment.duration(end - start).asHours());
+    };
+
+    $scope.getDurationHumanized = function(start, end) {
+      return moment.duration(end - start).humanize();
     };
   }
 ]);

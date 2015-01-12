@@ -63,4 +63,8 @@
 	<h2 id="priceDistance">{{ priceDistance(distance, rate, tariff) | currency }}</h2> Km Preis<br>
 	<h2 id="priceTime">{{ priceTime(startDate, endDate, rate, tariff) | currency }}</h2> Zeit Preis<br>
 	<h2 id="duration">{{getDuration(startDate, endDate)}}</h2> Stunden<br>
+	<h2>{{getDurationExact(startDate, endDate).hours}}</h2> Exakt Stunden<br>
+	<h2>{{getDurationExact(startDate, endDate).days}}</h2> Exakt Tage<br>
+	<h2>{{getDurationExact(startDate, endDate).weeks}}</h2> Exakt Wochen<br>
+	<h2>{{getDurationHumanized(startDate, endDate)}}</h2> Humanized<br>
 </div>
