@@ -188,19 +188,21 @@ myApp.controller('smController', [
     $scope.tariff = 'classic';
 
     var getDuration = function(hours, days, weeks) {
-      return moment.duration({
-        hours: hours,
-        days: days,
-        weeks: weeks
-      });
+      var durationHours = moment.duration(hours, 'h');
+      var durationDays = moment.duration(days, 'd');
+      var durationWeeks = moment.duration(weeks, 'w');
+
+      var durationAll = durationHours.add(durationDays).add(durationWeeks);
+      return durationAll;
     };
 
     var getFeeTime = function(duration, rate) {
-      return (
-        duration.hours() * rate.hour +
-        duration.days() % 7 * rate.day +
-        Math.floor(duration.days() / 7) * rate.week
-      );
+      var feeHours = duration.hours() * rate.hour;
+      var feeDays = Math.floor(duration.asDays() % 7) * rate.day;
+      var feeWeeks = Math.floor(duration.asDays() / 7) * rate.week;
+
+      var fee = feeHours + feeDays + feeWeeks;
+      return fee;
     };
 
     var getFeeDistance = function(km, rate) {
