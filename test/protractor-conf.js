@@ -11,12 +11,15 @@ exports.config = {
 		'c2gb10km20minScenario.js',
 
 		'sm10km10hClassicScenario.js',
-		'sm10km10hBasicScenario.js'
+		'sm10km10hBasicScenario.js',
+
+		'dtpSm10km10hClassicScenario.js',
+		'dtpSm10km10hBasicScenario.js'
 	],
 
 	capabilities: {
 		'browserName': 'chrome',
 		shardTestFiles: true,
-		maxInstances: 8
+		maxInstances: 10
 	},
 };
