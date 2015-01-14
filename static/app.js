@@ -20,15 +20,18 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   $scope.feeAdditionalKm = 0.29;
 
   $scope.getDays = function(minutes) {
-    return Math.floor(minutes / 1440);
+    var duration = moment.duration(minutes, 'm');
+    return Math.floor(duration.asDays());
   };
 
   $scope.getHours = function(minutes) {
-    return Math.floor((minutes - ($scope.getDays(minutes) * 1440)) / 60);
+    var duration = moment.duration(minutes, 'm');
+    return duration.hours();
   };
 
   $scope.getMinutes = function(minutes) {
-    return minutes % 1440 % 60;
+    var duration = moment.duration(minutes, 'm');
+    return duration.minutes();
   };
 
   $scope.getFreeKm = function(minutes) {
@@ -53,18 +56,15 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   };
 
   $scope.getFeeDays = function(minutes) {
-    return Math.floor(minutes / 1440) * $scope.feeDay;
+    return $scope.getDays(minutes) * $scope.feeDay;
   };
 
   $scope.getFeeHours = function(minutes) {
-    return (
-      Math.floor((minutes - ($scope.getDays(minutes) * 1440)) / 60) *
-      $scope.feeHour
-    );
+    return $scope.getHours(minutes) * $scope.feeHour;
   };
 
   $scope.getFeeMinutes = function(minutes) {
-    return minutes % 1440 % 60 * $scope.feeMinute;
+    return $scope.getMinutes(minutes) * $scope.feeMinute;
   };
 
   $scope.getFeeStanding = function(minutes) {
@@ -103,11 +103,13 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
   $scope.feeAdditionalKm = 0.29;
 
   $scope.getDays = function(minutes) {
-    return Math.floor(minutes / 1440);
+    var duration = moment.duration(minutes, 'm');
+    return Math.floor(duration.asDays());
   };
 
   $scope.getHours = function(minutes) {
-    return Math.ceil((minutes - ($scope.getDays(minutes) * 1440)) / 60);
+    var duration = moment.duration(minutes, 'm');
+    return Math.ceil(duration.asHours() % 24);
   };
 
   $scope.getFreeKm = function(minutes) {
@@ -132,14 +134,11 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
   };
 
   $scope.getFeeDays = function(minutes) {
-    return Math.floor(minutes / 1440) * $scope.feeDay;
+    return $scope.getDays(minutes) * $scope.feeDay;
   };
 
   $scope.getFeeHours = function(minutes) {
-    return (
-      Math.ceil((minutes - ($scope.getDays(minutes) * 1440)) / 60) *
-      $scope.feeHour
-    );
+    return $scope.getHours(minutes) * $scope.feeHour;
   };
 
   $scope.getFeeAirport = function(airport) {
