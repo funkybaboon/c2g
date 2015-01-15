@@ -11,6 +11,8 @@ describe('c2g test', function() {
   var getfeeAdditionalKm = element(by.binding('getfeeAdditionalKm'));
   var getFeeStanding = element(by.binding('getFeeStanding'));
   var getFeeAirport = element(by.binding('getFeeAirport'));
+  var msgRoundDownToHours = element(by.binding('msgRoundDownToHours'));
+  var msgRoundDownToDays = element(by.binding('msgRoundDownToDays'));
 
   beforeEach(function() {
     browser.get('http://localhost:3003/c2g');
@@ -37,6 +39,12 @@ describe('c2g test', function() {
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('0,00 €');
     expect(getFeeAirport.getText()).toEqual('0,00 €');
+
+    //msg to round down
+    expect(
+      msgRoundDownToHours.getText()).toEqual('');
+    expect(
+      msgRoundDownToDays.getText()).toEqual('');
   });
 
   it('10km, 20 minutes, airport fee', function() {
@@ -61,6 +69,12 @@ describe('c2g test', function() {
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('0,00 €');
     expect(getFeeAirport.getText()).toEqual('4,90 €');
+
+    //msg to round down
+    expect(
+      msgRoundDownToHours.getText()).toEqual('');
+    expect(
+      msgRoundDownToDays.getText()).toEqual('');
   });
 
   it('10km, 20 minutes, 10 standing minutes', function() {
@@ -85,6 +99,12 @@ describe('c2g test', function() {
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('1,90 €');
     expect(getFeeAirport.getText()).toEqual('0,00 €');
+
+    //msg to round down
+    expect(
+      msgRoundDownToHours.getText()).toEqual('');
+    expect(
+      msgRoundDownToDays.getText()).toEqual('');
   });
 
   it('10km, 20 minutes, 10 standing minutes, airport fee', function() {
@@ -110,5 +130,11 @@ describe('c2g test', function() {
     //Sonstiges
     expect(getFeeStanding.getText()).toEqual('1,90 €');
     expect(getFeeAirport.getText()).toEqual('4,90 €');
+
+    //msg to round down
+    expect(
+      msgRoundDownToHours.getText()).toEqual('');
+    expect(
+      msgRoundDownToDays.getText()).toEqual('');
   });
 });
