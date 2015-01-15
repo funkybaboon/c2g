@@ -307,10 +307,6 @@ myApp.config(['$routeProvider', '$locationProvider',
         }]
       }
     }).
-    when('/test', {
-      templateUrl: 'partials/test.html',
-      controller: 'DatepickerDemoCtrl'
-    }).
     when('/dtp', {
       templateUrl: 'partials/dtp.html',
       controller: 'datetimepickerCtrl',
@@ -345,63 +341,6 @@ myApp.directive('navBar', function() {
 
       };
     }
-  };
-});
-
-myApp.controller('DatepickerDemoCtrl', function($scope) {
-  $scope.maxDate = new moment().add(100, 'y');
-
-  // start date
-  $scope.startDateToday = function() {
-    $scope.startDate = new moment();
-  };
-  $scope.startDateToday();
-
-  $scope.startDateClear = function() {
-    $scope.startDate = null;
-  };
-
-  $scope.startDateOpen = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-
-    $scope.startDateOpened = true;
-  };
-
-  // end date
-  $scope.endDateToday = function() {
-    $scope.endDate = new moment();
-  };
-  $scope.endDate = new moment().add(20, 'h');
-
-  $scope.endDateClear = function() {
-    $scope.endDate = null;
-  };
-
-  $scope.endDateOpen = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-
-    $scope.endDateOpened = true;
-  };
-
-  // generic functions
-  $scope.toggleMin = function() {
-    $scope.minDate = new moment();
-  };
-  $scope.toggleMin();
-
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[2];
-
-  // duration
-  $scope.getDuration = function(start, end) {
-    return moment.duration(end - start).humanize();
   };
 });
 
