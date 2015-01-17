@@ -71,6 +71,7 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   };
 
   $scope.getFeeHours = function(minutes) {
+<<<<<<< HEAD
     var fee = $scope.getHours(minutes) * $scope.feeHour;
     if (fee >= $scope.feeDay) {
       fee = $scope.feeDay;
