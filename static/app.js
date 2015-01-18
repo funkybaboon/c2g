@@ -59,61 +59,39 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   };
 
   $scope.getFeeDays = function(minutes) {
-    feeMinutes = $scope.getFeeMinutes(minutes); 
+    feeMinutes = $scope.getFeeMinutes(minutes);
     feeHours = $scope.getFeeHours(minutes);
     feeDays = $scope.getDays(minutes) * $scope.feeDay;
 
-    if ( feeMinutes + feeHours >= $scope.feeDay) {
+    if (feeMinutes + feeHours >= $scope.feeDay) {
       feeDays += $scope.feeDay;
-    };
+    }
 
-    return feeDays
+    return feeDays;
   };
 
   $scope.getFeeHours = function(minutes) {
-<<<<<<< HEAD
     var fee = $scope.getHours(minutes) * $scope.feeHour;
     if (fee >= $scope.feeDay) {
       fee = $scope.feeDay;
       //$scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
-=======
-    var feeHours = $scope.getHours(minutes) * $scope.feeHour;
-    if (feeHours >= $scope.feeDay) {
-      feeHours = $scope.feeDay;
-      $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
->>>>>>> origin/master
     } else {
       //$scope.msgRoundDownToDays = '';
     }
 
-    return feeHours;
+    return fee;
   };
 
   $scope.getFeeMinutes = function(minutes) {
-<<<<<<< HEAD
     var fee = $scope.getMinutes(minutes) * $scope.feeMinute;
     if (fee >= $scope.feeHour) {
       fee = $scope.feeHour;
       //$scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
     } else {
       //$scope.msgRoundDownToHours = '';
-=======
-    var feeMinutes = $scope.getMinutes(minutes) * $scope.feeMinute;
-    var feeHours = $scope.getHours(minutes) * $scope.feeHour;
-    if (feeHours < $scope.feeDay) {
-      if (feeMinutes >= $scope.feeHour) {
-        feeMinutes = $scope.feeHour;
-        $scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
-      } else {
-        $scope.msgRoundDownToHours = '';
-      }
-    } else {
-      feeMinutes = 0;
-      $scope.msgRoundDownToHours = ' (abgerundet auf Tagesgebühr)';
->>>>>>> origin/master
     }
 
-    return feeMinutes;
+    return fee;
   };
 
   $scope.getFeeStanding = function(minutes) {
@@ -129,7 +107,7 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   };
 
   $scope.price = function(km, minutes, timeStanding, airport) {
-    feeMinutes = $scope.getFeeMinutes(minutes); 
+    feeMinutes = $scope.getFeeMinutes(minutes);
     feeHours = $scope.getFeeHours(minutes);
     feeDays = $scope.getFeeDays(minutes);
 
@@ -144,12 +122,12 @@ myApp.controller('c2gController', ['$scope', function($scope) {
       $scope.msgRoundDownToDays = '';
     }
 
-    if ( feeMinutes + feeHours >= $scope.feeDay) {
+    if (feeMinutes + feeHours >= $scope.feeDay) {
       $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
       $scope.msgRoundDownToHours = ' (abgerundet auf Tagesgebühr)';
       feeMinutes = 0;
       feeHours = 0;
-    };
+    }
 
     return (
       $scope.getfeeAdditionalKm(km, minutes) +
