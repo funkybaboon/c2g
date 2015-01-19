@@ -23,15 +23,15 @@ describe('c2g test', function() {
     element(by.model('time')).clear().sendKeys(2000);
 
     //Preis
-    expect(price.getText()).toEqual('123,80 €');
+    expect(price.getText()).toEqual('118,00 €');
 
     //Zeit
-    expect(getDays.getText()).toEqual('1');
-    expect(getFeeDays.getText()).toEqual('59,00 €');
-    expect(getHours.getText()).toEqual('9');
-    expect(getFeeHours.getText()).toEqual('59,00 €');
     expect(getMinutes.getText()).toEqual('20');
     expect(getFeeMinutes.getText()).toEqual('5,80 €');
+    expect(getHours.getText()).toEqual('9');
+    expect(getFeeHours.getText()).toEqual('59,00 €');
+    expect(getDays.getText()).toEqual('1');
+    expect(getFeeDays.getText()).toEqual('118,00 €');
 
     //Distanz
     expect(getFreeKm.getText()).toEqual('100');
@@ -44,7 +44,7 @@ describe('c2g test', function() {
 
     //msg to round down
     expect(
-      msgRoundDownToHours.getText()).toEqual('');
+      msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
   });
@@ -54,15 +54,15 @@ describe('c2g test', function() {
     element(by.model('time')).clear().sendKeys(2000);
 
     //Preis
-    expect(price.getText()).toEqual('128,70 €');
+    expect(price.getText()).toEqual('122,90 €');
 
     //Zeit
-    expect(getDays.getText()).toEqual('1');
-    expect(getFeeDays.getText()).toEqual('59,00 €');
-    expect(getHours.getText()).toEqual('9');
-    expect(getFeeHours.getText()).toEqual('59,00 €');
     expect(getMinutes.getText()).toEqual('20');
     expect(getFeeMinutes.getText()).toEqual('5,80 €');
+    expect(getHours.getText()).toEqual('9');
+    expect(getFeeHours.getText()).toEqual('59,00 €');
+    expect(getDays.getText()).toEqual('1');
+    expect(getFeeDays.getText()).toEqual('118,00 €');
 
     //Distanz
     expect(getFreeKm.getText()).toEqual('100');
@@ -75,7 +75,7 @@ describe('c2g test', function() {
 
     //msg to round down
     expect(
-      msgRoundDownToHours.getText()).toEqual('');
+      msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
   });
@@ -85,15 +85,15 @@ describe('c2g test', function() {
     element(by.model('time')).clear().sendKeys(2000);
 
     //Preis
-    expect(price.getText()).toEqual('125,70 €');
+    expect(price.getText()).toEqual('119,90 €');
 
     //Zeit
-    expect(getDays.getText()).toEqual('1');
-    expect(getFeeDays.getText()).toEqual('59,00 €');
-    expect(getHours.getText()).toEqual('9');
-    expect(getFeeHours.getText()).toEqual('59,00 €');
     expect(getMinutes.getText()).toEqual('20');
     expect(getFeeMinutes.getText()).toEqual('5,80 €');
+    expect(getHours.getText()).toEqual('9');
+    expect(getFeeHours.getText()).toEqual('59,00 €');
+    expect(getDays.getText()).toEqual('1');
+    expect(getFeeDays.getText()).toEqual('118,00 €');
 
     //Distanz
     expect(getFreeKm.getText()).toEqual('100');
@@ -106,7 +106,7 @@ describe('c2g test', function() {
 
     //msg to round down
     expect(
-      msgRoundDownToHours.getText()).toEqual('');
+      msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
   });
@@ -117,15 +117,15 @@ describe('c2g test', function() {
     element(by.model('time')).clear().sendKeys(2000);
 
     //Preis
-    expect(price.getText()).toEqual('130,60 €');
+    expect(price.getText()).toEqual('124,80 €');
 
     //Zeit
-    expect(getDays.getText()).toEqual('1');
-    expect(getFeeDays.getText()).toEqual('59,00 €');
-    expect(getHours.getText()).toEqual('9');
-    expect(getFeeHours.getText()).toEqual('59,00 €');
     expect(getMinutes.getText()).toEqual('20');
     expect(getFeeMinutes.getText()).toEqual('5,80 €');
+    expect(getHours.getText()).toEqual('9');
+    expect(getFeeHours.getText()).toEqual('59,00 €');
+    expect(getDays.getText()).toEqual('1');
+    expect(getFeeDays.getText()).toEqual('118,00 €');
 
     //Distanz
     expect(getFreeKm.getText()).toEqual('100');
@@ -138,7 +138,7 @@ describe('c2g test', function() {
 
     //msg to round down
     expect(
-      msgRoundDownToHours.getText()).toEqual('');
+      msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
   });
