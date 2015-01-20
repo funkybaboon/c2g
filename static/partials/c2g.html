@@ -34,9 +34,9 @@
 	
 	<b>Zeit</b><br>
 
-	<span>{{ getMinutes(time) }}</span> Minuten a <span>{{ feeMinute | currency }}</span> = <span>{{ getFeeMinutes(time) | currency }}</span><span>{{msgRoundDownToHours}}</span><br>
+	<span>{{ getMinutes(time) }}</span> Minuten a <span>{{ feeMinute | currency }}</span> = <span>{{ getFeeMinutes(time) | currency }}</span><span class="MsgRoundDownToHours" ng-show="showMsgRoundDownToHours">{{msgRoundDownToHours}}</span><br>
 
-	<span>{{ getHours(time) }}</span> Stunden a <span>{{ feeHour | currency }}</span> = <span>{{ getFeeHours(time) | currency }}</span><span>{{msgRoundDownToDays}}</span><br>
+	<span>{{ getHours(time) }}</span> Stunden a <span>{{ feeHour | currency }}</span> = <span>{{ getFeeHours(time) | currency }}</span><span class="MsgRoundDownToDays" ng-show="showMsgRoundDownToDays">{{msgRoundDownToDays}}</span><br>
 
 	<span>{{ getDays(time) }}</span> Tage a <span>{{ feeDay | currency }}</span> = <span>{{ getFeeDays(time) | currency }}</span><br>
 

@@ -19,8 +19,11 @@ myApp.controller('c2gController', ['$scope', function($scope) {
 
   $scope.feeAdditionalKm = 0.29;
 
-  $scope.msgRoundDownToDays = '';
-  $scope.msgRoundDownToHours = '';
+  $scope.showMsgRoundDownToDays = false;
+  $scope.showMsgRoundDownToHours = false;
+
+  $scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
+  $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
 
   $scope.getDays = function(minutes) {
     var duration = moment.duration(minutes, 'm');
@@ -74,9 +77,6 @@ myApp.controller('c2gController', ['$scope', function($scope) {
     var fee = $scope.getHours(minutes) * $scope.feeHour;
     if (fee >= $scope.feeDay) {
       fee = $scope.feeDay;
-      //$scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
-    } else {
-      //$scope.msgRoundDownToDays = '';
     }
 
     return fee;
@@ -86,9 +86,6 @@ myApp.controller('c2gController', ['$scope', function($scope) {
     var fee = $scope.getMinutes(minutes) * $scope.feeMinute;
     if (fee >= $scope.feeHour) {
       fee = $scope.feeHour;
-      //$scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
-    } else {
-      //$scope.msgRoundDownToHours = '';
     }
 
     return fee;
@@ -107,24 +104,26 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   };
 
   $scope.price = function(km, minutes, timeStanding, airport) {
+    $scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
     feeMinutes = $scope.getFeeMinutes(minutes);
     feeHours = $scope.getFeeHours(minutes);
     feeDays = $scope.getFeeDays(minutes);
 
     if (feeMinutes >= $scope.feeHour) {
-      $scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
+      $scope.showMsgRoundDownToHours = true;
     } else {
-      $scope.msgRoundDownToHours = '';
+      $scope.showMsgRoundDownToHours = false;
     }
     if (feeHours >= $scope.feeDay) {
-      $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
+      $scope.showMsgRoundDownToDays = true;
     } else {
-      $scope.msgRoundDownToDays = '';
+      $scope.showMsgRoundDownToDays = false;
     }
 
     if (feeMinutes + feeHours >= $scope.feeDay) {
-      $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
-      $scope.msgRoundDownToHours = ' (abgerundet auf Tagesgebühr)';
+      $scope.msgRoundDownToHours = $scope.msgRoundDownToDays;
+      $scope.showMsgRoundDownToDays = true;
+      $scope.showMsgRoundDownToHours = true;
       feeMinutes = 0;
       feeHours = 0;
     }
@@ -151,7 +150,9 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
 
   $scope.feeAdditionalKm = 0.29;
 
-  $scope.msgRoundDownToDays = '';
+  $scope.showMsgRoundDownToDays = false;
+
+  $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
 
   $scope.getDays = function(minutes) {
     var duration = moment.duration(minutes, 'm');
@@ -192,10 +193,8 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
     var fee = $scope.getHours(minutes) * $scope.feeHour;
     if (fee >= $scope.feeDay) {
       fee = $scope.feeDay;
-      $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
-    } else {
-      $scope.msgRoundDownToDays = '';
     }
+
     return fee;
   };
 
@@ -208,14 +207,22 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
   };
 
   $scope.price = function(km, minutes, airport) {
+    feeHours = $scope.getFeeHours(minutes);
+    feeDays = $scope.getFeeDays(minutes);
+
+    if (feeHours >= $scope.feeDay) {
+      $scope.showMsgRoundDownToDays = true;
+    } else {
+      $scope.showMsgRoundDownToDays = false;
+    }
+
     return (
       $scope.getfeeAdditionalKm(km, minutes) +
-      $scope.getFeeDays(minutes) +
-      $scope.getFeeHours(minutes) +
+      feeDays +
+      feeHours +
       $scope.getFeeAirport(airport)
     );
   };
-
 }]);
 
 myApp.factory('stadtMobilRates', function($http) {

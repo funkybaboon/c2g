@@ -13,6 +13,8 @@ describe('c2g test', function() {
   var getFeeAirport = element(by.binding('getFeeAirport'));
   var msgRoundDownToHours = element(by.binding('msgRoundDownToHours'));
   var msgRoundDownToDays = element(by.binding('msgRoundDownToDays'));
+  var showMsgRoundDownToHours = element(by.css('span.MsgRoundDownToHours'));
+  var showMsgRoundDownToDays = element(by.css('span.MsgRoundDownToDays'));
 
   beforeEach(function() {
     browser.get('http://localhost:3003/c2g');
@@ -45,6 +47,9 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('');
     expect(
       msgRoundDownToDays.getText()).toEqual('');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(false);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(false);
   });
 
   it('10km, 20 minutes, airport fee', function() {
@@ -75,6 +80,9 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('');
     expect(
       msgRoundDownToDays.getText()).toEqual('');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(false);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(false);
   });
 
   it('10km, 20 minutes, 10 standing minutes', function() {
@@ -105,6 +113,9 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('');
     expect(
       msgRoundDownToDays.getText()).toEqual('');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(false);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(false);
   });
 
   it('10km, 20 minutes, 10 standing minutes, airport fee', function() {
@@ -136,5 +147,8 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('');
     expect(
       msgRoundDownToDays.getText()).toEqual('');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(false);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(false);
   });
 });

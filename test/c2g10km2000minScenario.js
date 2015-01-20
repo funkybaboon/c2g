@@ -13,6 +13,8 @@ describe('c2g test', function() {
   var getFeeAirport = element(by.binding('getFeeAirport'));
   var msgRoundDownToHours = element(by.binding('msgRoundDownToHours'));
   var msgRoundDownToDays = element(by.binding('msgRoundDownToDays'));
+  var showMsgRoundDownToHours = element(by.css('span.MsgRoundDownToHours'));
+  var showMsgRoundDownToDays = element(by.css('span.MsgRoundDownToDays'));
 
   beforeEach(function() {
     browser.get('http://localhost:3003/c2g');
@@ -47,6 +49,9 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(true);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(true);
   });
 
   it('10km, 2000 minutes, airport fee', function() {
@@ -109,6 +114,9 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(true);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(true);
   });
 
   it('10km, 2000 minutes, 10 standing minutes, airport fee', function() {
@@ -141,5 +149,8 @@ describe('c2g test', function() {
       msgRoundDownToHours.getText()).toEqual('(abgerundet auf Tagesgebühr)');
     expect(
       msgRoundDownToDays.getText()).toEqual('(abgerundet auf Tagesgebühr)');
+
+    expect(showMsgRoundDownToHours.isDisplayed()).toBe(true);
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(true);
   });
 });

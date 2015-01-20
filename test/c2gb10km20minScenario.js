@@ -9,6 +9,7 @@ describe('c2gb test 10km 20min', function() {
   var getfeeAdditionalKm = element(by.binding('getfeeAdditionalKm'));
   var getFeeAirport = element(by.binding('getFeeAirport'));
   var msgRoundDownToDays = element(by.binding('msgRoundDownToDays'));
+  var showMsgRoundDownToDays = element(by.css('span.MsgRoundDownToDays'));
 
   beforeEach(function() {
     browser.get('http://localhost:3003/c2gb');
@@ -36,6 +37,8 @@ describe('c2gb test 10km 20min', function() {
     //msg to round down
     expect(
       msgRoundDownToDays.getText()).toEqual('');
+
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(false);
   });
 
   it('10km, 20 minutes, airport fee', function() {
@@ -60,5 +63,7 @@ describe('c2gb test 10km 20min', function() {
     //msg to round down
     expect(
       msgRoundDownToDays.getText()).toEqual('');
+
+    expect(showMsgRoundDownToDays.isDisplayed()).toBe(false);
   });
 });

@@ -26,7 +26,7 @@
   <p>Preis im Detail:</p>
   <b>Zeit</b><br>
 
-  <span>{{ getHours(time) }}</span> Stunden a  <span>{{ feeHour | currency }}</span> =  <span>{{ getFeeHours(time) | currency }}</span><span>{{msgRoundDownToDays}}</span><br>
+  <span>{{ getHours(time) }}</span> Stunden a  <span>{{ feeHour | currency }}</span> =  <span>{{ getFeeHours(time) | currency }}</span><span class="MsgRoundDownToDays" ng-show="showMsgRoundDownToDays">{{msgRoundDownToDays}}</span><br>
 
   <span>{{ getDays(time) }}</span> Tage a  <span>{{ feeDay | currency }}</span> =  <span>{{ getFeeDays(time) | currency }}</span><br>
 
