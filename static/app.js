@@ -366,16 +366,26 @@ myApp.directive('navBar', function() {
     restrict: 'E',
     templateUrl: 'partials/navBar.html',
     controller: function($scope, $element, $location) {
+      $scope.tabs = [{
+        name: 'Car2go',
+        url: 'c2g'
+      }, {
+        name: 'Car2goBlack',
+        url: 'c2gb'
+      }, {
+        name: 'Stadtmobil',
+        url: 'sm'
+      }, {
+        name: 'Datetime',
+        url: 'dtp'
+      }];
+
       $scope.isActive = function(viewLocation) {
-
         var active = false;
-
         if (viewLocation === $location.path()) {
           active = true;
         }
-
         return active;
-
       };
     }
   };
