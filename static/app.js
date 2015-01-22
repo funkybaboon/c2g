@@ -255,6 +255,8 @@ myApp.controller('smController', [
     $scope.rate = 'A';
     $scope.tariff = 'classic';
 
+    $scope.resolution = ['hours', 'days', 'weeks'];
+
     var getDuration = function(hours, days, weeks) {
       var durationHours = moment.duration(hours, 'h');
       var durationDays = moment.duration(days, 'd');
