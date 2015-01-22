@@ -409,6 +409,13 @@ myApp.directive('timeInputForm', function() {
   };
 });
 
+myApp.directive('dtpForm', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/dtpForm.html'
+  };
+});
+
 myApp.controller('datetimepickerCtrl', [
   '$scope',
   'stadtmobilRates',
