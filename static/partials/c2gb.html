@@ -1,24 +1,4 @@
-<div class="form-group">
-  <div class="input-group">
-    <input type="number" class="form-control" placeholder="Strecke" ng-model="distance">
-    <span class="input-group-addon">Km</span>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="input-group">
-    <input type="number" class="form-control" placeholder="Zeit" ng-model="time">
-    <span class="input-group-addon">Minuten</span>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="input-group">
-    <div class="checkbox">
-      <label><input type="checkbox" ng-model="airport">Flughafenpauschale</label>
-    </div>
-  </div>
-</div>
+<time-Input-Form></time-Input-Form>
 
 <div class="highlight">
   <h1> <span>{{ price(distance, time, airport) | currency }}</span></h1>

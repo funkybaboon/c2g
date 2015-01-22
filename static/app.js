@@ -25,6 +25,8 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   $scope.msgRoundDownToHours = ' (abgerundet auf Stundengebühr)';
   $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
 
+  $scope.resolution = ['minutes', 'minutesStanding', 'airport'];
+
   $scope.getDays = function(minutes) {
     var duration = moment.duration(minutes, 'm');
     return Math.floor(duration.asDays());
@@ -153,6 +155,8 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
   $scope.showMsgRoundDownToDays = false;
 
   $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
+
+  $scope.resolution = ['minutes', 'airport'];
 
   $scope.getDays = function(minutes) {
     var duration = moment.duration(minutes, 'm');
@@ -386,6 +390,18 @@ myApp.directive('navBar', function() {
           active = true;
         }
         return active;
+      };
+    }
+  };
+});
+
+myApp.directive('timeInputForm', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/timeInputForm.html',
+    controller: function($scope) {
+      $scope.isResolution = function(value) {
+        return $scope.resolution.indexOf(value) !== -1;
       };
     }
   };
