@@ -15,11 +15,12 @@ describe('c2gb test', function() {
     browser.get('http://localhost:3003/c2gb');
   });
 
-  it('10km, 2000 minutes', function() {
+  it('1000km, 2000 minutes', function() {
     element(by.model('time')).clear().sendKeys(2000);
+    element(by.model('distance')).clear().sendKeys(1000);
 
     //Preis
-    expect(price.getText()).toEqual('178,00 €');
+    expect(price.getText()).toEqual('352,00 €');
 
     //Zeit
     expect(getDays.getText()).toEqual('1');
@@ -29,8 +30,8 @@ describe('c2gb test', function() {
 
     //Distanz
     expect(getFreeKm.getText()).toEqual('400');
-    expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
+    expect(getAdditionalKm.getText()).toEqual('600');
+    expect(getfeeAdditionalKm.getText()).toEqual('174,00 €');
 
     //Sonstiges
     expect(getFeeAirport.getText()).toEqual('0,00 €');
@@ -42,12 +43,13 @@ describe('c2gb test', function() {
     expect(showMsgRoundDownToDays.isDisplayed()).toBe(true);
   });
 
-  it('10km, 2000 minutes, airport fee', function() {
+  it('1000km, 2000 minutes, airport fee', function() {
     element(by.model('time')).clear().sendKeys(2000);
+    element(by.model('distance')).clear().sendKeys(1000);
     element(by.model('airport')).click();
 
     //Preis
-    expect(price.getText()).toEqual('182,90 €');
+    expect(price.getText()).toEqual('356,90 €');
 
     //Zeit
     expect(getDays.getText()).toEqual('1');
@@ -57,8 +59,8 @@ describe('c2gb test', function() {
 
     //Distanz
     expect(getFreeKm.getText()).toEqual('400');
-    expect(getAdditionalKm.getText()).toEqual('0');
-    expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
+    expect(getAdditionalKm.getText()).toEqual('600');
+    expect(getfeeAdditionalKm.getText()).toEqual('174,00 €');
 
     //Sonstiges
     expect(getFeeAirport.getText()).toEqual('4,90 €');

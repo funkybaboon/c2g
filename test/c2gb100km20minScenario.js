@@ -1,4 +1,4 @@
-describe('c2gb test 100km 20min', function() {
+describe('c2gb test', function() {
   var price = element(by.binding('price'));
   var getDays = element(by.binding('getDays'));
   var getFeeDays = element(by.binding('getFeeDays'));

@@ -70,7 +70,7 @@ describe('c2g test', function() {
     expect(getFeeDays.getText()).toEqual('59,00 €');
 
     //Distanz
-    expect(getFreeKm.getText()).toEqual('50');
+    expect(getFreeKm.getText()).toEqual('100');
     expect(getAdditionalKm.getText()).toEqual('0');
     expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
@@ -104,7 +104,7 @@ describe('c2g test', function() {
     expect(getFeeDays.getText()).toEqual('59,00 €');
 
     //Distanz
-    expect(getFreeKm.getText()).toEqual('50');
+    expect(getFreeKm.getText()).toEqual('100');
     expect(getAdditionalKm.getText()).toEqual('0');
     expect(getfeeAdditionalKm.getText()).toEqual('0,00 €');
 
