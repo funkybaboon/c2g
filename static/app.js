@@ -6,7 +6,6 @@ var myApp = angular.module('myApp', [
 ]);
 
 myApp.controller('c2gController', ['$scope', function($scope) {
-
   $scope.vendor = 'car2go';
   $scope.distance = 10;
   $scope.time = 20;
@@ -496,11 +495,7 @@ myApp.directive('navBar', function() {
       }];
 
       $scope.isActive = function(viewLocation) {
-        var active = false;
-        if (viewLocation === $location.path()) {
-          active = true;
-        }
-        return active;
+        return viewLocation === $location.path();
       };
     }
   };
