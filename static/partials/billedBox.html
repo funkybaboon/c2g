@@ -2,13 +2,15 @@
 	<h2>Abgerechnete Zeit</h2>
 
 	<div ng-show="{{isResolution('minutes')}}">{{ getMinutesBilled( time ) }} Minuten</div>
-	<span>{{ getHoursBilled( time ) }} Stunden<br></span>
-	<span>{{ getDaysBilled( time ) }} Tage<br></span>
+	<div ng-show="{{isResolution('hours')}}">{{ getHoursBilled( time ) }} Stunden</div>
+	<div ng-show="{{isResolution('days')}}">{{ getDaysBilled( time ) }} Tage</div>
+	<div ng-show="{{isResolution('weeks')}}">{{ getWeeksBilled( time ) }} Wochen</div>
 
 	<h2>Wahre Zeit</h2>
 
 	<div ng-show="{{isResolution('minutes')}}">{{ getMinutes( time ) }} Minuten</div>
-	<span>{{ getHours( time ) }} Stunden<br></span>
-	<span>{{ getDays( time ) }} Tage<br></span>
+	<div ng-show="{{isResolution('hours')}}">{{ getHours( time ) }} Stunden</div>
+	<div ng-show="{{isResolution('days')}}">{{ getDays( time ) }} Tage</div>
+	<div ng-show="{{isResolution('weeks')}}">{{ getWeeks( time ) }} Wochen</div>
 
 </div>

@@ -25,7 +25,7 @@ myApp.controller('c2gController', ['$scope', function($scope) {
   $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
 
   $scope.resolution = ['minutes', 'minutesStanding', 'airport'];
-  $scope.resolutionTime = ['minutes'];
+  $scope.resolutionTime = ['minutes', 'hours', 'days'];
 
   $scope.getMinutes = function(minutes) {
     var duration = moment.duration(minutes, 'm');
@@ -219,7 +219,7 @@ myApp.controller('c2gbController', ['$scope', function($scope) {
   $scope.msgRoundDownToDays = ' (abgerundet auf Tagesgebühr)';
 
   $scope.resolution = ['minutes', 'airport'];
-  $scope.resolutionTime = [];
+  $scope.resolutionTime = ['hours', 'days'];
 
   $scope.getHours = function(minutes) {
     var duration = moment.duration(minutes, 'm');
