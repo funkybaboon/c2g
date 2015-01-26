@@ -364,6 +364,7 @@ myApp.controller('smController', [
     $scope.tariff = 'classic';
 
     $scope.resolution = ['hours', 'days', 'weeks'];
+    $scope.resolutionTime = ['hours', 'days', 'weeks'];
 
     var getDuration = function(hours, days, weeks) {
       var durationHours = moment.duration(hours, 'h');
@@ -431,6 +432,86 @@ myApp.controller('smController', [
     $scope.priceDistance = priceDistance;
     $scope.priceTime = priceTime;
 
+    //-------------------------------------------------------------------------
+    // Billing Box Hack
+    //-------------------------------------------------------------------------
+    var getDurationAll = function() {
+      return getDuration(
+        $scope.timeHours,
+        $scope.timeDays,
+        $scope.timeWeeks
+      );
+    };
+
+    var getCurrentRateAll = function() {
+      var rate = $scope.rate;
+      var tariff = $scope.tariff;
+      // studi and classic have the same rates
+      if (tariff === 'studi') {
+        tariff = 'classic';
+      }
+      return stadtmobilRates[tariff][rate];
+    };
+
+    $scope.getHours = function() {
+      return getDurationAll().hours();
+    };
+
+    $scope.getDays = function() {
+      return Math.floor(getDurationAll().asDays() % 7);
+    };
+
+    $scope.getWeeks = function() {
+      return Math.floor(getDurationAll().asDays() / 7);
+    };
+
+    var getDurationBilled = function() {
+      var rate = getCurrentRateAll();
+
+      var feeHours = $scope.getHours() * rate.hour;
+      var feeDays = $scope.getDays() * rate.day;
+      var feeMWeeks = $scope.getWeeks() * rate.week;
+
+      var hoursBilled = $scope.getHours();
+      var daysBilled = $scope.getDays();
+      var weeksBilled = $scope.getWeeks();
+
+      if (feeHours >= rate.day) {
+        hoursBilled = 0;
+        feeHours = 0;
+        daysBilled += 1;
+        feeDays = daysBilled * rate.day;
+      }
+
+      if (feeHours + feeDays >= rate.week) {
+        hoursBilled = 0;
+        feeHours = 0;
+        daysBilled = 0;
+        feeDays = 0;
+        weeksBilled += 1;
+        feeWeeks = weeksBilled * rate.week;
+      }
+
+      var duration = moment.duration({
+        hours: hoursBilled,
+        days: daysBilled,
+        weeks: weeksBilled
+      });
+
+      return duration;
+    };
+
+    $scope.getHoursBilled = function() {
+      return getDurationBilled().hours();
+    };
+
+    $scope.getDaysBilled = function() {
+      return Math.floor(getDurationBilled().asDays() % 7);
+    };
+
+    $scope.getWeeksBilled = function() {
+      return Math.floor(getDurationBilled().asDays() / 7);
+    };
   }
 ]);
 
@@ -544,6 +625,8 @@ myApp.controller('datetimepickerCtrl', [
     $scope.rate = 'A';
     $scope.tariff = 'classic';
 
+    $scope.resolutionTime = ['hours', 'days', 'weeks'];
+
     var getDurationExact = function(start, end) {
       timespan = moment.duration(end - start);
       timespanExact = {
@@ -610,13 +693,81 @@ myApp.controller('datetimepickerCtrl', [
     $scope.priceTime = priceTime;
     $scope.getDurationExact = getDurationExact;
 
-    // duration
-    $scope.getDuration = function(start, end) {
-      return Math.ceil(moment.duration(end - start).asHours());
+    //-------------------------------------------------------------------------
+    // Billing Box Hack
+    //-------------------------------------------------------------------------
+    var getDurationAll = function() {
+      return moment.duration($scope.endDate - $scope.startDate);
     };
 
-    $scope.getDurationHumanized = function(start, end) {
-      return moment.duration(end - start).humanize();
+    var getCurrentRateAll = function() {
+      var rate = $scope.rate;
+      var tariff = $scope.tariff;
+      // studi and classic have the same rates
+      if (tariff === 'studi') {
+        tariff = 'classic';
+      }
+      return stadtmobilRates[tariff][rate];
+    };
+
+    $scope.getHours = function() {
+      return getDurationAll().hours();
+    };
+
+    $scope.getDays = function() {
+      return Math.floor(getDurationAll().asDays() % 7);
+    };
+
+    $scope.getWeeks = function() {
+      return Math.floor(getDurationAll().asDays() / 7);
+    };
+
+    var getDurationBilled = function() {
+      var rate = getCurrentRateAll();
+
+      var feeHours = $scope.getHours() * rate.hour;
+      var feeDays = $scope.getDays() * rate.day;
+      var feeMWeeks = $scope.getWeeks() * rate.week;
+
+      var hoursBilled = $scope.getHours();
+      var daysBilled = $scope.getDays();
+      var weeksBilled = $scope.getWeeks();
+
+      if (feeHours >= rate.day) {
+        hoursBilled = 0;
+        feeHours = 0;
+        daysBilled += 1;
+        feeDays = daysBilled * rate.day;
+      }
+
+      if (feeHours + feeDays >= rate.week) {
+        hoursBilled = 0;
+        feeHours = 0;
+        daysBilled = 0;
+        feeDays = 0;
+        weeksBilled += 1;
+        feeWeeks = weeksBilled * rate.week;
+      }
+
+      var duration = moment.duration({
+        hours: hoursBilled,
+        days: daysBilled,
+        weeks: weeksBilled
+      });
+
+      return duration;
+    };
+
+    $scope.getHoursBilled = function() {
+      return getDurationBilled().hours();
+    };
+
+    $scope.getDaysBilled = function() {
+      return Math.floor(getDurationBilled().asDays() % 7);
+    };
+
+    $scope.getWeeksBilled = function() {
+      return Math.floor(getDurationBilled().asDays() / 7);
     };
   }
 ]);
