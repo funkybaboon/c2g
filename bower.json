@@ -1,10 +1,6 @@
 {
   "name": "c2g",
   "version": "0.0.0",
-  "homepage": "https://github.com/funkybaboon/c2g",
-  "authors": [
-    "funkybaboon <funkybaboon@gmail.com>"
-  ],
   "license": "MIT",
   "private": true,
   "ignore": [
